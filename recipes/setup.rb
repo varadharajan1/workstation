@@ -14,16 +14,9 @@ end
 
 package 'ntp'
 
-file '/etc/motd' do
- content "This server is the property of TechnoTraininer
- HOSTNAME : #{node['hostname']}
- IPADDRESS : #{node['ipaddress']}
- CUP : #{node['cpu']['0']['mhz']}
- MEMORY : #{node['memory']['total']}
- "
- action :create
- owner  'root'
- group  'root'
+template '/etc/motd' do
+  source 'motd.erb'
+  action :create
 end
 
 service 'ntpd' do
